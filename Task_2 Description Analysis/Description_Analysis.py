@@ -1,0 +1,42 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+df = pd.read_csv("Dataset .csv")
+print(df.describe())
+print("\nMean of Numerical Columns")
+print(df.mean(numeric_only=True))
+print("\nMedian of Numerical Columns")
+print(df.median(numeric_only=True))
+print("\nStandard Deviation")
+print(df.std(numeric_only=True))
+
+print("Country Code Distribution")
+print(df["Country Code"].value_counts())
+plt.figure(figsize=(8,5))
+sns.countplot(x="Country Code", data=df)
+plt.title("Country Code Distribution")
+plt.xlabel("Country Code")
+plt.ylabel("Number of Restaurants")
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
+
+top_cities = df["City"].value_counts().head(10)
+print(top_cities)
+plt.figure(figsize=(10,5))
+sns.barplot(x=top_cities.index,y=top_cities.values)
+plt.title("Top 10 Cities with Highest Restaurants")
+plt.xlabel("Cities")
+plt.ylabel("Number of Restaurants")
+plt.xticks(rotation=45)
+plt.show()
+
+top_cuisines = df["Cuisines"].value_counts().head(10)
+print(top_cuisines)
+plt.figure(figsize=(10,5))
+sns.barplot(x=top_cuisines.values, y=top_cuisines.index)
+plt.title("Top 10 Most Common Cuisines")
+plt.xlabel("Number of Restaurants")
+plt.ylabel("Cuisine")
+plt.show()
